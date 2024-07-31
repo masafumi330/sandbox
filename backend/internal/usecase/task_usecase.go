@@ -36,9 +36,12 @@ func (tu *taskUsecase) Create(content string, date time.Time) error {
 		return err
 	}
 
-	taskService := domain.NewTaskService()
-
-	if taskService.Exists(task) {
+	taskService := domain.NewTaskService(tu.taskRepo)
+	isExist, err := taskService.Exists(task)
+	if err != nil {
+		return err
+	}
+	if isExist {
 		return ErrTaskAlreadyExists
 	}
 

@@ -33,5 +33,6 @@ func (t *Task) Exists(otherTask Task) bool {
 }
 
 type TaskRepository interface {
+	FindSameTask(content string, date time.Time) (*Task, error)
 	Save(task Task) error
 }
