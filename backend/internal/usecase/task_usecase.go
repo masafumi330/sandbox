@@ -39,9 +39,7 @@ func (tu *taskUsecase) Create(content string, date time.Time) error {
 	taskService := domain.NewTaskService()
 
 	// TODO: 同じ内容&同じ日付のタスクの重複チェック
-	// isExists := task.Exists(task) // 生成したオブジェクト自体に重複の問い合わせをすることになるので違和感がある
-	isExists := taskService.Exists(task)
-	if isExists {
+	if taskService.Exists(task) {
 		return ErrTaskAlreadyExists
 	}
 	// TODO: repositoryに永続化依頼
