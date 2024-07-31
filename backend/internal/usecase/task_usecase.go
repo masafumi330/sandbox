@@ -38,11 +38,13 @@ func (tu *taskUsecase) Create(content string, date time.Time) error {
 
 	taskService := domain.NewTaskService()
 
-	// TODO: 同じ内容&同じ日付のタスクの重複チェック
 	if taskService.Exists(task) {
 		return ErrTaskAlreadyExists
 	}
-	// TODO: repositoryに永続化依頼
+
+	if err := tu.taskRepo.Save(task); err != nil {
+		return err
+	}
 
 
 	return nil
