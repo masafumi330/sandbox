@@ -26,3 +26,7 @@ func NewTask(content string, date time.Time) (Task, error) {
 		Date: date,
 	}, nil
 }
+
+type TaskRepository interface {
+	
+}
