@@ -2,7 +2,10 @@ module sandbox
 
 go 1.21.8
 
-require github.com/labstack/echo/v4 v4.12.0
+require (
+	github.com/labstack/echo/v4 v4.12.0
+	github.com/pkg/errors v0.9.1
+)
 
 require (
 	github.com/labstack/gommon v0.4.2 // indirect
