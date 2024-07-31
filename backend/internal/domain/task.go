@@ -27,6 +27,11 @@ func NewTask(content string, date time.Time) (Task, error) {
 	}, nil
 }
 
+// まずはTaskエンティティに重複確認の振る舞いを追加してみる
+func (t *Task) Exists(otherTask Task) bool {
+	return false
+}
+
 type TaskRepository interface {
-	
+
 }
