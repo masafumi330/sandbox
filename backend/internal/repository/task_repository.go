@@ -1,14 +1,19 @@
 package repository
 
 import (
+	"database/sql"
 	"sandbox/domain"
 	"time"
 )
 
-type taskRepository struct {}
+type taskRepository struct {
+	db *sql.DB
+}
 
-func NewTaskRepository() domain.TaskRepository {
-	return &taskRepository{}
+func NewTaskRepository(db *sql.DB) domain.TaskRepository {
+	return &taskRepository{
+		db: db,
+	}
 }
 
 func (tr *taskRepository) FindSameTask(content string, date time.Time) (*domain.Task, error) {
