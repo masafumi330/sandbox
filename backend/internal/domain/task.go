@@ -8,10 +8,10 @@ import (
 
 type (
 	TaskID int
-	Task struct {
-		ID TaskID
+	Task   struct {
+		ID      TaskID
 		Content string
-		Date time.Time
+		Date    time.Time
 	}
 )
 
@@ -23,7 +23,7 @@ func NewTask(content string, date time.Time) (Task, error) {
 	}
 	return Task{
 		Content: content,
-		Date: date,
+		Date:    date,
 	}, nil
 }
 

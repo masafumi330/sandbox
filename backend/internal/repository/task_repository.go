@@ -2,8 +2,9 @@ package repository
 
 import (
 	"database/sql"
-	"sandbox/domain"
 	"time"
+
+	"sandbox/domain"
 )
 
 type taskRepository struct {

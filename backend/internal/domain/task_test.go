@@ -24,7 +24,7 @@ func TestNewTask(t *testing.T) {
 				date:    time.Now(),
 			},
 			want:    Task{},
-			wantErr: true,	
+			wantErr: true,
 		},
 	}
 	for _, tt := range tests {

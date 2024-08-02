@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"os"
+
 	"sandbox/handler"
 	"sandbox/repository"
 	"sandbox/usecase"
@@ -21,7 +22,6 @@ func main() {
 
 	e := echo.New()
 
-
 	taskRepo := repository.NewTaskRepository(db)
 	taskUsecase := usecase.NewTaskUsecase(taskRepo)
 	taskHandler := handler.NewTaskHandler(taskUsecase)
@@ -33,10 +33,10 @@ func main() {
 
 func initDB() (*sql.DB, error) {
 	dbUser := os.Getenv("DB_USER")
-    dbPassword := os.Getenv("DB_PASSWORD")
-    dbHost := os.Getenv("DB_HOST")
-    dbPort := os.Getenv("DB_PORT")
-    dbName := os.Getenv("DB_NAME")
+	dbPassword := os.Getenv("DB_PASSWORD")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+	dbName := os.Getenv("DB_NAME")
 
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s", dbUser, dbPassword, dbHost, dbPort, dbName)
 	db, err := sql.Open("mysql", dsn)

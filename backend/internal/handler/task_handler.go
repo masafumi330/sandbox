@@ -2,8 +2,9 @@ package handler
 
 import (
 	"net/http"
-	"sandbox/usecase"
 	"time"
+
+	"sandbox/usecase"
 
 	"github.com/labstack/echo/v4"
 )
@@ -26,6 +27,6 @@ func (h *taskHandler) CreateTask(c echo.Context) error {
 	if err := h.taskUsecase.Create("content", time.Date(2021, 1, 1, 0, 0, 0, 0, time.UTC)); err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
-	
+
 	return c.JSON(http.StatusOK, "task created")
 }

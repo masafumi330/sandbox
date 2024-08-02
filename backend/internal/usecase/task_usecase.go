@@ -2,8 +2,9 @@ package usecase
 
 import (
 	"errors"
-	"sandbox/domain"
 	"time"
+
+	"sandbox/domain"
 )
 
 // TaskUsecase represent the task's usecases.
@@ -26,9 +27,7 @@ type taskUsecase struct {
 // Ensure taskUsecase implement TaskUsecase.
 var _ TaskUsecase = (*taskUsecase)(nil)
 
-var (
-	ErrTaskAlreadyExists = errors.New("task already exists")
-)
+var ErrTaskAlreadyExists = errors.New("task already exists")
 
 func (tu *taskUsecase) Create(content string, date time.Time) error {
 	task, err := domain.NewTask(content, date)
@@ -49,7 +48,5 @@ func (tu *taskUsecase) Create(content string, date time.Time) error {
 		return err
 	}
 
-
 	return nil
 }
-
