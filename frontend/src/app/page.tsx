@@ -1,7 +1,3 @@
-import App from "./Form";
-
-export default function Home() {
-  return (
-    <App />
-  );
+export default function Page() {
+  return <h1 className="text-2xl">This is TODO App!</h1>;
 }
