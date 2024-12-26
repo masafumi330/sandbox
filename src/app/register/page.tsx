@@ -6,7 +6,15 @@ type Inputs = {
   userName: string;
   lastName: string;
   email: string;
+  gender: GenderEnum;
+  age: number;
 };
+
+enum GenderEnum {
+  femail = "femail",
+  mail = "mail",
+  other = "other",
+}
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -36,6 +44,17 @@ const Register = () => {
       <label>Email</label>
       <input {...register("email", {required: true})} placeholder="example@gmail.com" className="border p-1"/>
       {errors.email && <span className="text-red-500">This field is required.</span>}
+
+      <label>Gender</label>
+      <select {...register("gender")} className="border p-1">
+        <option value={GenderEnum.femail}>Femail</option>
+        <option value={GenderEnum.mail}>Mail</option>
+        <option value={GenderEnum.other}>Other</option>
+      </select>
+
+      <label>Age</label>
+      <input {...register("age", {min:0, max:99})} type="number" className="border p-1"/>
+      {errors.age && <span className="text-red-500">Invalid age</span>}
 
       <input type="submit"/>
 
