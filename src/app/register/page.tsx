@@ -64,16 +64,16 @@ const Register = () => {
 
       <label>First Name</label>
       <input
-        {...register("firstName", { required: true })}
+        {...register("firstName", { required: "required" })}
         placeholder="Bil"
         className="border p-1"
       />
       {errors.firstName && (
-        <span className="text-red-500">This field is required.</span>
+        <span className="text-red-500">{errors.firstName.message}</span>
       )}
       <label>Last Name</label>
       <input
-        {...register("lastName")}
+        {...register("lastName", { required: "required" })}
         placeholder="Luo"
         className="border p-1"
       />
@@ -82,12 +82,12 @@ const Register = () => {
 
       <label>Email</label>
       <input
-        {...register("email", { required: true })}
+        {...register("email", { required: "required" })}
         placeholder="example@gmail.com"
         className="border p-1"
       />
       {errors.email && (
-        <span className="text-red-500">This field is required.</span>
+        <span className="text-red-500">{errors.email.message}</span>
       )}
 
       <label>Gender</label>
