@@ -1,12 +1,8 @@
 import { Inputs } from "@/app/register/page";
-import { Control, useFieldArray, UseFormRegister } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
-type Props = {
-  control: Control<Inputs>;
-  register: UseFormRegister<Inputs>;
-};
-
-const FieldArray: React.FC<Props> = ({ control, register }) => {
+const FieldArray: React.FC = ({}) => {
+  const { control, register } = useFormContext<Inputs>();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "interests",
@@ -26,7 +22,7 @@ const FieldArray: React.FC<Props> = ({ control, register }) => {
       <button
         className="p-2"
         type="button"
-        onClick={() => append({ name: "default" })}
+        onClick={() => append({ name: "" })}
       >
         append
       </button>

@@ -1,26 +1,17 @@
 "use client";
 
 import FieldArray from "@/components/FieldArray";
-import { Control, useForm, useWatch } from "react-hook-form";
+import { Control, FormProvider, useForm, useWatch } from "react-hook-form";
 
 export type Inputs = {
   firstName: string;
   lastName: string;
-  email: string;
-  gender: GenderEnum;
-  age: number;
   interests: Array<Interest>;
 };
 
 export type Interest = {
   name: string;
 };
-
-enum GenderEnum {
-  femail = "femail",
-  mail = "mail",
-  other = "other",
-}
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -46,12 +37,19 @@ const FullNameWatched = ({ control }: { control: Control<Inputs> }) => {
 };
 
 const Register = () => {
+  const methods = useForm<Inputs>({
+    mode: "onBlur",
+    defaultValues: {
+      firstName: "Bill",
+      lastName: "Luo",
+    },
+  });
   const {
     register,
     handleSubmit,
-    formState: { errors },
     control,
-  } = useForm<Inputs>();
+    formState: { errors },
+  } = methods;
 
   const onSubmit = async (data: Inputs) => {
     await sleep(100);
@@ -59,56 +57,37 @@ const Register = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col space-y-4">
-      <h1>Async Submit Validation</h1>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col space-y-4"
+      >
+        <h1>Async Submit Validation</h1>
 
-      <label>First Name</label>
-      <input
-        {...register("firstName", { required: "required" })}
-        placeholder="Bil"
-        className="border p-1"
-      />
-      {errors.firstName && (
-        <span className="text-red-500">{errors.firstName.message}</span>
-      )}
-      <label>Last Name</label>
-      <input
-        {...register("lastName", { required: "required" })}
-        placeholder="Luo"
-        className="border p-1"
-      />
+        <label>First Name</label>
+        <input
+          {...register("firstName", { required: "required" })}
+          placeholder="Bill"
+          className="border p-1"
+          defaultValue={""}
+        />
+        {errors.firstName && (
+          <span className="text-red-500">{errors.firstName.message}</span>
+        )}
+        <label>Last Name</label>
+        <input
+          {...register("lastName", { required: "required" })}
+          placeholder="Luo"
+          className="border p-1"
+        />
 
-      <FullNameWatched control={control} />
+        <FullNameWatched control={control} />
 
-      <label>Email</label>
-      <input
-        {...register("email", { required: "required" })}
-        placeholder="example@gmail.com"
-        className="border p-1"
-      />
-      {errors.email && (
-        <span className="text-red-500">{errors.email.message}</span>
-      )}
+        <FieldArray />
 
-      <label>Gender</label>
-      <select {...register("gender")} className="border p-1">
-        <option value={GenderEnum.femail}>Femail</option>
-        <option value={GenderEnum.mail}>Mail</option>
-        <option value={GenderEnum.other}>Other</option>
-      </select>
-
-      <label>Age</label>
-      <input
-        {...register("age", { min: 0, max: 99 })}
-        type="number"
-        className="border p-1"
-      />
-      {errors.age && <span className="text-red-500">Invalid age</span>}
-
-      <FieldArray control={control} register={register} />
-
-      <input type="submit" />
-    </form>
+        <input type="submit" />
+      </form>
+    </FormProvider>
   );
 };
 
